@@ -7,7 +7,7 @@ import numpy as np
 
 
 def imprimir():
-    #cleanScreen()
+    cleanScreen()
     print("___________________________________________________")
     print(" Bienvenido a la calculadora de Métodos númericos ")
     print("___________________________________________________")
@@ -104,21 +104,24 @@ def lagrange():
 def minCua():
     cleanScreen()
     print("_____________________________________________________")
-    print(" II.- Encontrar la ecuación de la recta \n con método de minimos cuadrados  ")
+    print(" III.- Encontrar la ecuación de la recta \n con método de minimos cuadrados  ")
     print("_____________________________________________________")
     print("Sigue los siguiente pasos:")
-    n = int(input("1.- Ingrese la cantidad de punto deseados: "))
+    n = int(input("1.- Ingrese la cantidad de puntos deseados: "))
 
     Xs = []
+    justXs = []
     Ys = []
     xi = 0
     yi = 0
     j = 0
+    print("2.- Ingrese los puntos")
     for j in range(n):
         xi = int(input("Ingresa X%i " % (j)))
         yi = int(input("Ingresa Y%i " % (j)))
         #Xs.append([int(1),int(xi),int(xi**2)])
-        Xs.append([int(1),int(xi)])
+        Xs.append([int(1),int(xi),int(xi**2)])
+        justXs.append(int(xi))
         Ys.append(int(yi))
 
     AA = np.transpose(Xs)  # transpuesta
@@ -128,13 +131,14 @@ def minCua():
     u3 = np.dot(u2, Ys)  # u3[0]=b u3[1]=a donde y = ax+b
 
     # los simbolos %s sirven para mezclar textos con variables
-    print(" La recta es y= %s*x+ %s" % (u3[1], u3[0]))
-    time.sleep(2)
-    x = np.linspace(-5, 7)
-    y1 = u3[1]*x+u3[0]  # Ecuación de la recta
+    print(" La recta es y= %s*x^2+%s*x+ %s" % (u3[2],u3[1], u3[0]))
+    print("3.- Ingrese el rango en el eje X para graficar ")
+    xo = int(input("X inicial: "))
+    xf = int(input("X final: "))
+    x = np.linspace(xo, xf)
+    y1 = (u3[2]*(x**2))+u3[1]*x+u3[0]  # Ecuación de la recta
     plt.plot(x, y1)  # Grafica la recta
-    X = [4, 5, -1, 1]
-    plt.plot(X, Ys, 'o', color='r')  # grafica puntos
+    plt.plot(justXs, Ys, 'o', color='r')  # grafica puntos
     plt.title("Regresion cuadrática_ y= %s*x+ %s" % (u3[1], u3[0]))
     plt.grid(True)
     plt.xlabel('Eje X')
