@@ -3,7 +3,10 @@ import os
 import time
 import matplotlib.pyplot as plt
 import numpy as np
-
+from sympy import *
+from sympy.abc import x, y
+from pylab import *
+from sympy import Function, dsolve, pprint, exp, cos, csc, tan, sec, sin, sqrt
 
 
 def imprimir():
@@ -16,7 +19,7 @@ def imprimir():
     print("1. Calcular polinomio de Tylor")
     print("2. Encontrar polinomio de interpolacion lagrange")
     print("3. Ec. de la recta Minimos Cuadrados")
-    print("4. Newton Raphson")
+    print("4. Newton Raphson y Punto fijo")
     print("5. Método de Simpson")
     print("6. Runge Kutta")
     print("0. Salir")
@@ -38,10 +41,12 @@ def menu():
                 print()
                 chooseMetodo(opSelected)
             else:
-                print('Error, solo de aceptan numeros del 0 al 6')
+                print('Error, solo se aceptan numeros del 0 al 6')
+                time.sleep(2)
 
         except ValueError:
             print("Error, ingrese solamente numeros.")
+            time.sleep(2)
 
 
 def chooseMetodo(opcion):
@@ -58,12 +63,11 @@ def chooseMetodo(opcion):
 
     func()
 
-
+############################ Tylor #############################################
 def tylor():
     print("January")
 
-
-############################ LAGRANEGE #########################################
+############################ LAGRANGE ##########################################
 def lagrange():
     cleanScreen()
     print("_____________________________________________________")
@@ -71,6 +75,7 @@ def lagrange():
     print("_____________________________________________________")
     print("Sigue los siguiente pasos:")
     print("1.- Ingrese 4 puntos (x,y)")
+
     Xs = []
     Ys = []
     xi = 0
@@ -98,9 +103,9 @@ def lagrange():
     plt.ylabel('Eje Y')
     plt.show()
 
-###########################################################################
+    input("Presione enter para continuar...")
 
-
+############################ Minimos cuadrados #################################
 def minCua():
     cleanScreen()
     print("_____________________________________________________")
@@ -115,11 +120,11 @@ def minCua():
     xi = 0
     yi = 0
     j = 0
+
     print("2.- Ingrese los puntos")
     for j in range(n):
         xi = int(input("Ingresa X%i " % (j)))
         yi = int(input("Ingresa Y%i " % (j)))
-        #Xs.append([int(1),int(xi),int(xi**2)])
         Xs.append([int(1),int(xi),int(xi**2)])
         justXs.append(int(xi))
         Ys.append(int(yi))
@@ -130,25 +135,48 @@ def minCua():
     u2 = np.dot(u1, AA)
     u3 = np.dot(u2, Ys)  # u3[0]=b u3[1]=a donde y = ax+b
 
-    # los simbolos %s sirven para mezclar textos con variables
     print(" La recta es y= %s*x^2+%s*x+ %s" % (u3[2],u3[1], u3[0]))
     print("3.- Ingrese el rango en el eje X para graficar ")
+
     xo = int(input("X inicial: "))
     xf = int(input("X final: "))
     x = np.linspace(xo, xf)
     y1 = (u3[2]*(x**2))+u3[1]*x+u3[0]  # Ecuación de la recta
+
     plt.plot(x, y1)  # Grafica la recta
-    plt.plot(justXs, Ys, 'o', color='r')  # grafica puntos
+    plt.plot(justXs, Ys, 'o', color='r')  # Grafica los puntos
     plt.title("Regresion cuadrática_ y= %s*x+ %s" % (u3[1], u3[0]))
     plt.grid(True)
     plt.xlabel('Eje X')
     plt.ylabel('Eje Y')
     plt.show()
+
+    input("Presione enter para continuar...")
     
-
-
+############################ Newton Raphson ####################################
 def newRap():
-    return "April"
+    cleanScreen()
+    print("________________________________________")
+    print(" IV.- Solución mediante Newton-Raphson  ")
+    print("________________________________________")
+    print("Sigue los siguiente pasos:")
+    x0 = int(input("1.- Ingrese el valor inicial: ")) # Valor inicial
+    print("2.- Ingrese la ecuacion deseada: ") 
+    ec = (2*(x**3))-(11.7*(x**2))+(17.7*x)-5 # Ecuación
+    dec = diff(ec,x)
+    A =[]
+    N = int(input("3.- Ingrese el numero de iteraciones deseada: ")) # numero de iteraciones
+    for k in range(N):
+        x1 = x0 - float(ec.subs(x,x0))/float((dec.subs(x,x0)))
+        A.append(x1)
+        print("X_%i:  %s" % (int(k),float(x1)),"| Error: ",float(ec.subs(x,x1)))
+        x0 = x1
+    
+    input("Presione enter para continuar...")
+    cleanScreen()
+    import punto_fijo
+    exec(open('punto_fijo.py').read())
+    input("Presione enter para continuar...")
 
 
 def simpson():
