@@ -21,8 +21,9 @@ def imprimir():
     print("2. Encontrar polinomio de interpolacion lagrange")
     print("3. Ec. de la recta Minimos Cuadrados")
     print("4. Newton Raphson")
-    print("5. Método de Simpson")
-    print("6. Runge Kutta")
+    print("5. Punto fijo")
+    print("6. Método de Simpson")
+    print("7. Runge Kutta")
     print("0. Salir")
     print("\n** NOTA **\nHasta que cierre la ventana de las graficas el programa continuará")
     print()
@@ -34,7 +35,7 @@ def menu():
         try:
             opSelected = int(input("Seleccione una opcion: "))
 
-            if opSelected in range(7):
+            if opSelected in range(8):
 
                 if opSelected == 0:
                     print("Adios! :)")
@@ -42,7 +43,7 @@ def menu():
                 print()
                 chooseMetodo(opSelected)
             else:
-                print('Error, solo de aceptan numeros del 0 al 6')
+                print('Error, solo de aceptan numeros del 0 al 7')
 
         except ValueError:
             print("Error, ingrese solamente numeros.")
@@ -55,16 +56,58 @@ def chooseMetodo(opcion):
         2: lagrange,
         3: minCua,
         4: newRap,
-        5: simpson,
-        6: kutta
+        5: puntof,
+        6: simpson,
+        7: kutta
     }
     func = switch.get(opcion, "inválido")
 
     func()
 
-
+############################ Taylor #########################################
 def tylor():
-    print("January")
+    cleanScreen()
+    print("_____________________________________________________")
+    print(" I.- Polinomios de Taylor  ")
+    print("_____________________________________________________")
+    print("Sigue los siguiente pasos:")
+    print("1.- Ingrese la ecuacion: ")
+    #ec = input()
+    #ec = ln(1+x)
+    ec = 2*(x**3)-4*ln(x) #funcion sin derivar
+    x0 = int(input("2.- Ingrese el valor inicial: "))
+    N = int(input("3.- Ingrese el numero de orden N: "))
+    A = [] # Lista de sustituciones en funciones y derivadas
+    F = [] # Lista de funcion y derivadas
+    N += 1
+    
+    for k in range(N):
+        F.append(ec)
+        sust = ec.subs(x,x0)
+        A.append(sust)
+        dec = diff(ec,x) # N derivada
+        ec = dec
+        
+
+    #print(A)
+    #print(F)
+    T = []
+    T.append(A[0])
+    N-= 1
+    for k in range(N):
+        #print(k)
+        #print((x-x0)**(k+1))
+        f1 = (A[k+1]/factorial(k+1))*((x-x0)**(k+1))
+        T.append(f1)
+    
+    print("Polinomio de taylor : ", sum(T))
+
+
+
+    input("Presione enter para continuar... ")
+
+
+
 
 
 ############################ LAGRANEGE #########################################
@@ -102,9 +145,7 @@ def lagrange():
     plt.ylabel('Eje Y')
     plt.show()
 
-###########################################################################
-
-
+############################ Minimos cuadrados #########################################
 def minCua():
     cleanScreen()
     print("_____________________________________________________")
@@ -149,8 +190,7 @@ def minCua():
     plt.ylabel('Eje Y')
     plt.show()
     
-
-
+############################ Newton Raphson #########################################
 def newRap():
     cleanScreen()
     print("_____________________________________________________")
@@ -170,6 +210,54 @@ def newRap():
         #print("Xn",k,float(x1))
         print("X_%i: %.16f" % (k,float(x1)),"| Error: ",float(ec.subs(x,x1)))
         x0 = x1
+    input("\nPresione enter para continuar... ")
+
+############################ Punto fijo #########################################
+def puntof():
+    cleanScreen()
+    print("_____________________________________________________")
+    print(" V.- Resolver mediante Punto Fijo  ")
+    print("_____________________________________________________")
+    print("Sigue los siguiente pasos:")
+        
+    print("1.- Introduce la ecuación a resolver")
+    print("Introduce el valor inicial x0 ")
+    x0 = float(input('x0: '))
+    print("Introduce el numero de iteraciones ")
+    n = int(input('n: '))
+
+    #ec = 2-sin(sqrt(x))-x # ECUACION A RESOLVER
+    gx = 2-sin(sqrt(x))
+    #gdx = -cos(sqrt(x))/(2*sqrt(x)) 
+    gdx = diff(gx,x)
+
+
+    print("       g'(x)      |     x")
+    print("__________________|________________")
+
+    for k in range(n):
+    
+        gddx = gdx.subs(x,x0)
+        if gddx < 1 and gddx > -1 :
+            x0 = gx.subs(x,x0)
+            
+            print(gddx,x0)
+
+        else:
+            print("el valor x0 diverge en: ",x0)
+            gx = gx.subs(x,x0)
+            x0 = gx
+            print(x0)
+
+
+    xx = np.linspace(0,2)  
+    #plt.plot(x,-cos(sqrt(x))/(2*sqrt(x)))  # DERIVADA DE LA ECUACION INICIAL - g'(x)
+    plt.plot(xx,2-np.sin(np.sqrt(xx)))        # DESPEJE DE LA ECUACION - g(x)
+    #plt.plot(x,2-np.sin(np.sqrt(x))-x)     # ECUACION INICIAL - f(x)
+    plt.grid()
+    plt.title("Jair Gómez Vásquez")
+    plt.show()
+
     input("\nPresione enter para continuar... ")
 
 
