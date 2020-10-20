@@ -3,8 +3,10 @@ import os
 import time
 import matplotlib.pyplot as plt
 import numpy as np
+from pylab import *
 from sympy import *
 from sympy.abc import x, y
+from sympy import Function, dsolve, pprint, exp, cos, csc, tan, sec, sin, sqrt
 
 
 
@@ -22,7 +24,7 @@ def imprimir():
     print("5. Método de Simpson")
     print("6. Runge Kutta")
     print("0. Salir")
-    print("** NOTA ** -> Hasta que cierre la ventana de las graficas el programa continuará")
+    print("\n** NOTA **\nHasta que cierre la ventana de las graficas el programa continuará")
     print()
 
 
@@ -158,13 +160,15 @@ def newRap():
     x0 = int(input("1.- Ingrese el valor inicial: "))
     #x0 = int(input("2.- Ingrese la ecuacion a resolver "))
     N = int(input("3.- Ingrese el numero de iteracioes deseada: "))
-    ec = (2*(x**3))-(11.7*(x**2))+(17.7*x)-5 #ecuacion / (exp(-x))-x
+    #ec = (2*(x**3))-(11.7*(x**2))+(17.7*x)-5 #ecuacion / (exp(-x))-x
+    ec = (exp(-x))-x
     dec = diff(ec,x)
     A=[]
     for k in range(N):
         x1 = x0 - float(ec.subs(x,x0))/float((dec.subs(x,x0)))
         A.append(x1)
-        print("X_%i: %s" % (k,float(x1)),"| Error: ",float(ec.subs(x,x1)))
+        #print("Xn",k,float(x1))
+        print("X_%i: %.16f" % (k,float(x1)),"| Error: ",float(ec.subs(x,x1)))
         x0 = x1
     input("\nPresione enter para continuar... ")
 
