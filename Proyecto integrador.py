@@ -3,6 +3,8 @@ import os
 import time
 import matplotlib.pyplot as plt
 import numpy as np
+from sympy import *
+from sympy.abc import x, y
 
 
 
@@ -148,7 +150,23 @@ def minCua():
 
 
 def newRap():
-    return "April"
+    cleanScreen()
+    print("_____________________________________________________")
+    print(" IV.- Resolver mediante Newton Raphson  ")
+    print("_____________________________________________________")
+    print("Sigue los siguiente pasos:")
+    x0 = int(input("1.- Ingrese el valor inicial: "))
+    #x0 = int(input("2.- Ingrese la ecuacion a resolver "))
+    N = int(input("3.- Ingrese el numero de iteracioes deseada: "))
+    ec = (2*(x**3))-(11.7*(x**2))+(17.7*x)-5 #ecuacion / (exp(-x))-x
+    dec = diff(ec,x)
+    A=[]
+    for k in range(N):
+        x1 = x0 - float(ec.subs(x,x0))/float((dec.subs(x,x0)))
+        A.append(x1)
+        print("X_%i: %s" % (k,float(x1)),"| Error: ",float(ec.subs(x,x1)))
+        x0 = x1
+    input("\nPresione enter para continuar... ")
 
 
 def simpson():
