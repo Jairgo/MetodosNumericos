@@ -7,7 +7,7 @@ from pylab import *
 from sympy import *
 from sympy.abc import x, y
 from sympy import Function, dsolve, pprint, exp, cos, csc, tan, sec, sin, sqrt
-
+from sympy.parsing.sympy_parser import *
 
 
 def imprimir():
@@ -72,9 +72,10 @@ def tylor():
     print("_____________________________________________________")
     print("Sigue los siguiente pasos:")
     print("1.- Ingrese la ecuacion: ")
-    #ec = input()
+    ecu = input()
+    ec = parse_expr(ecu,evaluate=False)
     #ec = ln(1+x)
-    ec = 2*(x**3)-4*ln(x) #funcion sin derivar
+    #ec = 2*(x**3)-4*ln(x) #funcion sin derivar
     x0 = int(input("2.- Ingrese el valor inicial: "))
     N = int(input("3.- Ingrese el numero de orden N: "))
     A = [] # Lista de sustituciones en funciones y derivadas
@@ -100,15 +101,10 @@ def tylor():
         f1 = (A[k+1]/factorial(k+1))*((x-x0)**(k+1))
         T.append(f1)
     
-    print("Polinomio de taylor : ", sum(T))
-
-
+    poli = sum(T)
+    print("Polinomio de taylor : ", poli)
 
     input("Presione enter para continuar... ")
-
-
-
-
 
 ############################ LAGRANEGE #########################################
 def lagrange():
