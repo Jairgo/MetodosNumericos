@@ -269,7 +269,7 @@ def simpson():
     a = int(input("2.- Ingrese el limite inferior de la integral (a): "))
     b = int(input("3.- Ingrese el limite superior de la integral (b): "))
     n = int(input("4.- Ingrese el numero de iteraciones: "))
-    delx = (b - a)/n #lim sup - lim inf
+    delx = (b - a)/n # lim sup - lim inf ente iteraciones
     A = [] # Lista que guarda las funciones ya evaluadas
     fx0 = ec.subs(x,a) # El coeficiente 1 inicial
     A.append(fx0)
@@ -290,8 +290,8 @@ def simpson():
     kf = k + delx
     fxnf = ec.subs(x,kf) # El coeficiente 1 final
     A.append(fxnf)
-    Asum = sum(A)
-    Atotal = Asum * (delx/3)
+    #Asum = sum(A)
+    Atotal = sum(A) * (delx/3)
     print("El resultado de la integral ", ec, " es: ", Atotal)
     
     input("Presione enter para continuar... ")
