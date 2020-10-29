@@ -256,7 +256,7 @@ def puntof():
 
     input("\nPresione enter para continuar... ")
 
-
+############################ Simpson #########################################
 def simpson():
     cleanScreen()
     print("____________________________________________")
@@ -297,7 +297,7 @@ def simpson():
     input("Presione enter para continuar... ")
     
     
-
+############################ Runge Kutta #########################################
 def kutta():
     cleanScreen()
     print("________________________________________________________________")
