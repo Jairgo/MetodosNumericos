@@ -7,4 +7,6 @@ En este repositorio se encuentran algunos programas realizados con python durant
 
 Se encuentra también el programa del proyecto integrador de la materia.
 
+[abrir proyecto integrador](Proyecto_integrador.py)
+
 <hr/>
