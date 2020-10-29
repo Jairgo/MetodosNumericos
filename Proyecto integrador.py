@@ -299,7 +299,7 @@ def simpson():
     
 
 def kutta():
-    return "June"
+    return "Kutta"
 
 
 def cleanScreen():
