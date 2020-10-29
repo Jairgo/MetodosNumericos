@@ -10,7 +10,7 @@ from sympy import Function, dsolve, pprint, exp, cos, csc, tan, sec, sin, sqrt
 from sympy.parsing.sympy_parser import *
 
 
-print("Bienvenido, calculará la integral mediante el método de RungeKutta 4")
+print("Bienvenido, calculará la ecuación diferencial mediante el método de RungeKutta 4")
 print("1.- Ingrese la ecuacion: ")
 
 ecu = input()
