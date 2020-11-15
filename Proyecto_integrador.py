@@ -217,13 +217,17 @@ def puntof():
     print("Sigue los siguiente pasos:")
         
     print("1.- Introduce la ecuación a resolver")
+    ecu = input()
+    gx = parse_expr(ecu,evaluate=False)
+
     print("Introduce el valor inicial x0 ")
     x0 = float(input('x0: '))
     print("Introduce el numero de iteraciones ")
     n = int(input('n: '))
 
     #ec = 2-sin(sqrt(x))-x # ECUACION A RESOLVER
-    gx = 2-sin(sqrt(x))
+    #gx = 2-sin(sqrt(x))
+    
     #gdx = -cos(sqrt(x))/(2*sqrt(x)) 
     gdx = diff(gx,x)
 
@@ -308,11 +312,11 @@ def kutta():
 
     ecu = input()
     ec = parse_expr(ecu,evaluate=False)
-
-    x0 = int(input("Ingrese el valor x0: "))
-    y0 = int(input("Ingrese el valor y(x0): "))
-    n = int(input("Ingrese el numero de iteraciones n: "))
-    h = float(input("Ingrese el valor de h: "))
+    print(ec)
+    x0 = int(input("Ingrese el valor x0: [int] "))
+    y0 = float(input("Ingrese el valor y(x0): [float] "))
+    n = int(input("Ingrese el numero de iteraciones n: [int] "))
+    h = float(input("Ingrese el valor de h: [float] "))
 
     print("     yn        |   xn       |")
     print("_______________|____________|")
@@ -325,7 +329,13 @@ def kutta():
         yn = y0 +((h/6)*(k1+2*k2+2*k3+k4))
         y0 = yn
         x0 += h
-        print("   %.6f       %.1f    " % (y0,x0))
+        print("   %.12f       %.2f    " % (y0,x0))
+        
+    print("K1 = %.12f" % (k1))
+    print("K2 = %.12f" % (k2))
+    print("K3 = %.12f" % (k3))
+    print("K4 = %.12f" % (k4))
+
 
     input("Presione enter para continuar... ")
 
